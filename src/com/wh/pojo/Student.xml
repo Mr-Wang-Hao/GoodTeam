@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 	<mapper namespace="com.wh.pojo.StudentMapper">
+ 		<resultMap type="Student" id="studentBean">
+ 			<id column="sid" property="id"/>
+ 			<result column="sName" property="studentName"/>
+ 			<!-- 一对多关系 -->
+ 			<association property="grade" javaType="Grade">
+ 				<id column="gid" property="id"/>
+ 				<result column="gName" property="gradeName"/>
+ 			</association>
+ 		</resultMap>
+ 		
+ 		<select id="selectStudent" resultMap="studentBean">
+ 				SELECT s.id,s.studentName,g.id gid,g.gradeName gName FROM student s,grade g WHERE s.gradeId=g.id;
+ 		</select>
+		<select id="studentList" resultType="Student">
+				select * from student;
+		</select>
+		<insert id="addStudent" parameterType="Student">
+				insert into student(studentName) value(#{studentName})
+		</insert>
+		<delete id="deleteStudent" parameterType="Student">
+				delete from student where id=#{id}
+		</delete>
+		<update id="updateStudent" parameterType="Student">
+				update student set studentName=#{studentName} where id=#{id}
+		</update>
+		<select id="selectStdent" resultType="Student">
+				select * from Student where studentName = #{studentName} and id=#{id};
+		</select>
+		
+		<select id="selectStudentIf" resultType="Student">
+				select * from student
+				<if test="studentName!=null">
+					where studentName LIKE CONCAT('%',#{studentName},'%');
+				</if>
+		</select>
+	</mapper>

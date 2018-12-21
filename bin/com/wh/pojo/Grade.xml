@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wh.pojo.Grade">
+		<resultMap type="Grade" id="gradeBean">
+			<id column="gid" property="id"/>
+			<result column="gName" property="gradeName"/>
+			<collection property="studentList" ofType="Student">
+			<id column="sid" property="id"/>
+			<result column="sName" property="studentName"/>
+			</collection>
+		</resultMap>
+		
+		<select id="gradeList" resultMap="gradeBean">
+		SELECT s.id sid,s.studentName sName,g.id gid,g.gradeName gName FROM student s,grade g WHERE s.gradeId=g.id;
+		</select>
+		
+</mapper>

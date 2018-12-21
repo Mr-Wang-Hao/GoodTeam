@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Book">
+	<resultMap type="Book" id="bookBean">
+		<id column="bid" property="id"/>
+		<result column="bName" property="bookName"/>
+		<collection property="bookTypeList" ofType="bookType">
+			<id column="tid" property="id"/>
+			<result column="tName" property="typeName"/>
+		</collection>
+	</resultMap>
+	
+	<select id="selectBook" resultMap="bookBean">
+	SELECT b.`id` bid,b.`bookName` bName,t.`id` tid,t.`typeName` tName FROM  book b INNER JOIN book_bookType bt ON bt.`b_id`=b.`id` INNER JOIN bookType t ON t.`id` =bt.`t_id`
+	</select>
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<settings>
+	<setting name="autoMappingBehavior" value="FULL"/><!-- 自动匹配所有 匹配的时候查询语句不能够将其赋予别名 -->
+</settings>
+		<!-- 配置别名 -->
+		<typeAliases>
+				<package name="com.wh.pojo"/>
+		</typeAliases>
+		<!-- 配置环境 -->
+		<environments default="one">
+				<environment id="one">
+				<transactionManager type="JDBC"></transactionManager>
+				<dataSource type="POOLED">
+					<property name="driver" value="com.mysql.jdbc.Driver"/>
+					<property name="url" value="jdbc:mysql://localhost:3306/mybatis?characterEncoding=UTF-8"/>
+					<property name="username" value="root"/>
+					<property name="password" value="whdyp999"/>	
+				</dataSource>
+				</environment>
+		</environments>
+		<!-- 配置mapper映射文件 -->
+		<mappers>
+			<mapper resource="com/wh/pojo/Student.xml"/>
+			<mapper resource="com/wh/pojo/Grade.xml"/>
+			<mapper resource="com/wh/pojo/Book.xml"/>
+		</mappers>
+</configuration>
